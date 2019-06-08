@@ -48,9 +48,9 @@ const listSchema = {
 
 const List = mongoose.model("List", listSchema);
 
+const day = date.getDate();
 
 app.get("/", function (req, res) {
-    const day = date.getDate();
 
     Item.find({}, function (err, foundItems) {
 
@@ -84,6 +84,7 @@ app.get("/:listName", function (req, res) {
         if (!err) {
             if (resultList) {
                 res.render("list", {
+                    currTime: day,
                     listTitle: resultList.name,
                     newListItems: resultList.items
                 });
@@ -91,7 +92,6 @@ app.get("/:listName", function (req, res) {
             } else {
 
                 const list = new List({
-                    currTime : day,
                     name: listName,
                     items: defaultItems
                 });
@@ -100,8 +100,6 @@ app.get("/:listName", function (req, res) {
             }
         }
     });
-
-
 
 });
 
