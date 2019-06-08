@@ -1,0 +1,49 @@
+
+
+<%- include("header") -%>
+
+<div class="jumbotron centerr" style="margin-top:2rem">
+  <h1 class="display-4" align='center'><%= listTitle %> list</h1>
+</div>
+
+<div class="container-fluid center">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card bg-default" style="margin-bottom:1rem">
+				<h5 class="card-header">
+					<%=currTime%>
+				</h5>
+				<div class="card-body">
+                  <%  newListItems.forEach(function(item){ %>
+                    <form action="/delete" method="post">
+                    <div class="item">
+                       <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="checkbox" value="<%=item._id%>" onChange="this.form.submit()">
+                            </label>
+				        </div>
+                        <p class="card-text"><%=item.name%></p>
+                    </div>
+                    <input type="hidden" name="cuslistName" value="<%= listTitle %>"></input>
+                    </form>
+				  <%  }) %>
+				</div>
+<!--
+				<div class="card-footer">
+					Card footer
+				</div>
+-->
+			</div>
+			<form role="form"  action="/" method="post">
+				<div class="form-group" style="display: flex; justify-content: space-between">
+					<input type="text" class="form-controxl" id="exampleInputName1" name="newItem" placeholder="Enter ToDo item here" />
+				<button type="submit" class="btn btn-primary"  name="list" value="<%= listTitle %>">
+					+
+				</button>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+</div>
+<%- include("footer") -%>
